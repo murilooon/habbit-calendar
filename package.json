@@ -6,8 +6,9 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "lint": "yarn lint:eslint && yarn lint:prettier",
+    "lint": "yarn lint:commit && yarn lint:eslint && yarn lint:prettier",
     "lint:fix": "yarn lint:eslint:fix && yarn lint:prettier:fix",
+    "lint:commit": "COMMIT=$(git log master.. --format=%P | tail -1) && COMMIT=${COMMIT:-$(git log -1 --format=%P)} && commitlint --from=$COMMIT",
     "lint:eslint": "eslint . --ext .js,.ts,.jsx,.tsx",
     "lint:eslint:fix": "yarn lint:eslint --fix",
     "lint:prettier": "prettier --check \"**/*.{js,jsx,json,ts,tsx,yml}\"",
@@ -23,6 +24,8 @@
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
     "@types/react": "~16.9.35",
     "@types/react-dom": "~16.9.8",
     "@types/react-native": "~0.63.2",
@@ -34,6 +37,8 @@
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "husky": "^4.3.6",
+    "lint-staged": "^10.5.3",
     "prettier": "^2.2.1",
     "typescript": "~4.0.0"
   },
