@@ -1,11 +1,15 @@
 import React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+
+import ActionButtons from './ActionButtons';
+import HabbitCalendar from './HabbitCalendar';
 
 export default function Container() {
   return (
     <View style={styles.container}>
       <View style={styles.container_view}>
-        <Text>Miau Miau</Text>
+        <HabbitCalendar />
+        <ActionButtons />
       </View>
     </View>
   );
@@ -17,9 +21,11 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 60,
     borderTopRightRadius: 60,
     backgroundColor: 'white',
+    flexDirection: 'row',
   },
 
   container_view: {
+    flex: 1,
     marginTop: 50,
     width: 100,
     left: 0,
