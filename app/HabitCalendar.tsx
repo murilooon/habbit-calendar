@@ -1,9 +1,9 @@
 import React from 'react';
-import { CalendarList } from 'react-native-calendars';
+import { Calendar } from 'react-native-calendars';
 
 export default function HabitCalendar() {
   return (
-    <CalendarList
+    <Calendar
       markedDates={{
         '2021-01-05': {
           startingDay: true,
@@ -26,9 +26,6 @@ export default function HabitCalendar() {
         '2021-01-10': { color: '#f06f6a', endingDay: true, textColor: 'white' },
       }}
       markingType={'period'}
-      showScrollIndicator={true}
-      pastScrollRange={1}
-      futureScrollRange={2}
     />
   );
 }

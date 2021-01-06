@@ -25,7 +25,11 @@ export default function ActionButton({ label, color }: ActionButtonProps) {
       thumbOnStyle={styles.thumbOn}
       thumbOffStyle={{ backgroundColor: color }}
       trackOnStyle={{ backgroundColor: color }}
-      trackOffStyle={styles.trackOff}
+      trackOffStyle={{
+        backgroundColor: 'white',
+        borderColor: color,
+        borderWidth: 2,
+      }}
     />
   );
 }
@@ -36,5 +40,7 @@ const styles = StyleSheet.create({
   },
   trackOff: {
     backgroundColor: 'white',
+    borderColor: '#20232a',
+    borderWidth: 2,
   },
 });
