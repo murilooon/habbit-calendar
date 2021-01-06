@@ -1,28 +1,9 @@
-import {
-  useFonts,
-  IndieFlower_400Regular,
-} from '@expo-google-fonts/indie-flower';
-import {
-  WorkSans_400Regular,
-  WorkSans_700Bold,
-} from '@expo-google-fonts/work-sans';
-import AppLoading from 'expo-app-loading';
 import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 
 import HabbitLogo from './HabbitLogo';
 
 export default function Header() {
-  const [fontsLoaded] = useFonts({
-    IndieFlower_400Regular,
-    WorkSans_400Regular,
-    WorkSans_700Bold,
-  });
-
-  if (!fontsLoaded) {
-    return <AppLoading />;
-  }
-
   return (
     <View>
       <View style={styles.title_container}>
