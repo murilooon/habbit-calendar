@@ -2,13 +2,13 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 
 import ActionButtons from './ActionButtons';
-import HabitCalendar from './HabitCalendar';
+import HabbitCalendar from './HabbitCalendar';
 
 export default function Container() {
   return (
     <View style={styles.container}>
       <View style={styles.container_view}>
-        <HabitCalendar />
+        <HabbitCalendar />
         <ActionButtons />
       </View>
     </View>
