@@ -4,7 +4,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import ActionButtons from './app/ActionButtons';
+import Container from './app/Container';
 import Header from './app/Header';
 
 export default function App() {
@@ -13,7 +13,7 @@ export default function App() {
       <SafeAreaView style={styles.container}>
         <StatusBar backgroundColor="#fdce58" />
         <Header />
-        <ActionButtons />
+        <Container />
       </SafeAreaView>
     </LinearGradient>
   );

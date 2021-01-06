@@ -27,7 +27,7 @@ export default function Header() {
     <View>
       <View style={styles.title_container}>
         <HabbitLogo />
-        <Text style={styles.title_text}>Habit</Text>
+        <Text style={styles.title_text}>Habbit</Text>
       </View>
       <View style={styles.subtitle_container}>
         <Text style={styles.subtitle_text}>Welcome, Murilo</Text>
@@ -38,12 +38,14 @@ export default function Header() {
 
 const styles = StyleSheet.create({
   title_container: {
-    marginLeft: 30,
+    marginLeft: 20,
     marginTop: 50,
+    marginBottom: 8,
     flexDirection: 'row',
   },
   subtitle_container: {
-    marginLeft: 30,
+    marginLeft: 35,
+    marginBottom: 20,
   },
   title_text: {
     color: 'white',
@@ -52,7 +54,7 @@ const styles = StyleSheet.create({
     fontFamily: 'IndieFlower_400Regular',
   },
   subtitle_text: {
-    fontSize: 30,
+    fontSize: 20,
     fontFamily: 'WorkSans_400Regular',
     color: 'white',
   },
