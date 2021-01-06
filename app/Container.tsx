@@ -4,7 +4,7 @@ import { Text, View, StyleSheet } from 'react-native';
 
 import HabitCalendar from './HabitCalendar';
 
-export default function Modal() {
+export default function Container() {
   return (
     <LinearGradient colors={['#FFFFFF', '#FCD277']} style={styles.container}>
       <View style={styles.container_view}>
