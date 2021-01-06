@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
 import ActionButtons from './ActionButtons';
 import HabitCalendar from './HabitCalendar';
