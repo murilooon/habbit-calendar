@@ -1174,6 +1174,11 @@
   resolved "https://registry.yarnpkg.com/@expo-google-fonts/indie-flower/-/indie-flower-0.1.0.tgz#5c14acaced86be6856615a9084f1ccb3231f185b"
   integrity sha512-K399e7KYiBE3UmOTyfJNnqbb52yf6RwGsf1/s/qbb/5dX/KYRKon7FGn822E9ik+pphnz19usHtcH5qau2wAIA==
 
+"@expo-google-fonts/work-sans@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@expo-google-fonts/work-sans/-/work-sans-0.1.0.tgz#0839fe0b6cd9772db6227b21d22d7fe3450ef4ef"
+  integrity sha512-c24HquTDQlWjRGjEy8ZZoDEiKD8HNoiKDq+1vtZDAIhLbop0kqggbH+0FFWKigpID2tjABBlJg4MKo4iMKaRiQ==
+
 "@expo/babel-preset-cli@0.2.18":
   version "0.2.18"
   resolved "https://registry.yarnpkg.com/@expo/babel-preset-cli/-/babel-preset-cli-0.2.18.tgz#136acf8a0efe259e29ebc614b68552e5acb47d86"

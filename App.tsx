@@ -9,7 +9,7 @@ import Header from './app/Header';
 export default function App() {
   return (
     <LinearGradient colors={['#FDCD56', '#FCD277']} style={styles.container}>
-      <SafeAreaView>
+      <SafeAreaView style={styles.container}>
         <StatusBar backgroundColor="#fdce58" />
         <Header />
       </SafeAreaView>
