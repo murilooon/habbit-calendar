@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import ToggleSwitch from 'toggle-switch-react-native';
 
-export default function YesButton() {
+type ActionButtonProps = {
+  label: string;
+  color: string;
+};
+
+export default function ActionButton({ label, color }: ActionButtonProps) {
   const [status, setStatus] = useState(false);
 
   return (
@@ -14,12 +19,12 @@ export default function YesButton() {
         setStatus(!status);
       }}
       size="large"
-      label="NO"
-      labelStyle={styles.label}
+      label={label}
+      labelStyle={{ color, fontSize: 25, fontFamily: 'WorkSans_700Bold' }}
       animationSpeed={100}
       thumbOnStyle={styles.thumbOn}
-      thumbOffStyle={styles.thumbOff}
-      trackOnStyle={styles.trackOn}
+      thumbOffStyle={{ backgroundColor: color }}
+      trackOnStyle={{ backgroundColor: color }}
       trackOffStyle={styles.trackOff}
     />
   );
@@ -29,18 +34,7 @@ const styles = StyleSheet.create({
   thumbOn: {
     backgroundColor: 'white',
   },
-  thumbOff: {
-    backgroundColor: '#f06f6a',
-  },
   trackOff: {
     backgroundColor: 'white',
-  },
-  trackOn: {
-    backgroundColor: '#f06f6a',
-  },
-  label: {
-    color: '#f06f6a',
-    fontSize: 25,
-    fontFamily: 'WorkSans_700Bold',
   },
 });
