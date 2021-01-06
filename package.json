@@ -6,6 +6,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
+    "ts": "tsc",
     "lint": "yarn lint:commit && yarn lint:eslint && yarn lint:prettier",
     "lint:fix": "yarn lint:eslint:fix && yarn lint:prettier:fix",
     "lint:commit": "COMMIT=$(git log master.. --format=%P | tail -1) && COMMIT=${COMMIT:-$(git log -1 --format=%P)} && commitlint --from=$COMMIT",
