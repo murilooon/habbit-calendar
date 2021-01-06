@@ -1,19 +1,13 @@
-import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 
-import HabitCalendar from './HabitCalendar';
-
 export default function Container() {
   return (
-    <LinearGradient colors={['#FFFFFF', '#FCD277']} style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.container_view}>
-        <View style={styles.container}>
-          {/* <HabitCalendar /> */}
-          <Text>Miau Miau</Text>
-        </View>
+        <Text>Miau Miau</Text>
       </View>
-    </LinearGradient>
+    </View>
   );
 }
 
@@ -22,6 +16,7 @@ const styles = StyleSheet.create({
     flex: 1,
     borderTopLeftRadius: 60,
     borderTopRightRadius: 60,
+    backgroundColor: 'white',
   },
 
   container_view: {
