@@ -14,8 +14,9 @@ export default function Container() {
 
   function handleDayPress(day: DateObject) {
     const dateSelected: string = day['dateString'];
+    const isDaySelected = dates[dateSelected] ? true : false;
 
-    if (dates[dateSelected]) {
+    if (isDaySelected) {
       delete dates[dateSelected];
     } else {
       dates[dateSelected] = {
