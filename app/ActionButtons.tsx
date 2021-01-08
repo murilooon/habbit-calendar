@@ -4,13 +4,7 @@ import type { PeriodMarking } from 'react-native-calendars';
 
 import ActionButton from './ActionButton';
 
-type DatesProps = {
-  [date: string]: PeriodMarking;
-};
-
 type ActionButtonsProps = {
-  dates: { [date: string]: PeriodMarking };
-  setDates: (prevState: DatesProps) => void;
   isOnYes: boolean;
   isOnNo: boolean;
   isOnPart: boolean;
@@ -19,62 +13,28 @@ type ActionButtonsProps = {
     noStatus?: boolean,
     partStatus?: boolean,
   ) => void;
+  updateDatesByToggle: (toggleStatus: boolean, color: string) => void;
 };
 
 export default function ActionButtons({
-  dates,
-  setDates,
   isOnYes,
   isOnNo,
   isOnPart,
   setToggles,
+  updateDatesByToggle,
 }: ActionButtonsProps) {
-  function removeDay(day: string) {
-    delete dates[day];
-  }
-
-  function markDay(day: string, color: string) {
-    dates[day] = {
-      startingDay: true,
-      color,
-      endingDay: true,
-      textColor: 'white',
-    };
-  }
-
-  function updateDates(toggleStatus: boolean, color: string) {
-    const days = Object.keys(dates);
-
-    for (let i = 0; i < days.length; i++) {
-      const day = days[i];
-      const date = dates[day];
-
-      if (date['selected']) {
-        if (toggleStatus) {
-          markDay(day, color);
-        } else {
-          removeDay(day);
-        }
-      }
-    }
-
-    const dateUpdated = JSON.parse(JSON.stringify(dates));
-
-    setDates(dateUpdated);
-  }
-
   function handleYesChange(value: boolean) {
-    updateDates(value, GREEN_COLOR);
+    updateDatesByToggle(value, GREEN_COLOR);
     setToggles(value);
   }
 
   function handleNoChange(value: boolean) {
-    updateDates(value, RED_COLOR);
+    updateDatesByToggle(value, RED_COLOR);
     setToggles(false, value);
   }
 
   function handlePartChange(value: boolean) {
-    updateDates(value, YELLOW_COLOR);
+    updateDatesByToggle(value, YELLOW_COLOR);
     setToggles(false, false, value);
   }
 

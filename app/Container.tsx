@@ -5,11 +5,11 @@ import type { PeriodMarking, DateObject } from 'react-native-calendars';
 import ActionButtons from './ActionButtons';
 import HabbitCalendar from './HabbitCalendar';
 
-export default function Container() {
-  type DatesProps = {
-    [date: string]: PeriodMarking;
-  };
+type DatesProps = {
+  [date: string]: PeriodMarking;
+};
 
+export default function Container() {
   const [dates, setDates] = useState<DatesProps>({});
   const [isOnYes, setIsOnYes] = useState(false);
   const [isOnNo, setIsOnNo] = useState(false);
@@ -21,16 +21,18 @@ export default function Container() {
     setIsOnPart(partStatus);
   }
 
-  function markDay(date: string) {
+  function removeMarkedDay(day: string) {
+    delete dates[day];
+  }
+
+  function markDay(date: string, color: string, selected: boolean) {
     dates[date] = {
       startingDay: true,
-      color: SELECTED_COLOR,
+      color,
       endingDay: true,
       textColor: 'white',
-      selected: true,
+      selected,
     };
-
-    setToggles();
   }
 
   function updateMarkedDay(date: string) {
@@ -78,10 +80,6 @@ export default function Container() {
     };
   }
 
-  function removeMarkedDay(date: string) {
-    delete dates[date];
-  }
-
   function numberOfSelectedDays() {
     const days = Object.keys(dates);
     let daysSelected = 0;
@@ -112,11 +110,33 @@ export default function Container() {
         removeMarkedDay(daySelected);
       }
     } else {
-      markDay(daySelected);
+      markDay(daySelected, SELECTED_COLOR, true);
+      setToggles();
     }
 
     if (numberOfSelectedDays() > 1) {
       setToggles();
+    }
+
+    const dateUpdated = JSON.parse(JSON.stringify(dates));
+
+    setDates(dateUpdated);
+  }
+
+  function updateDatesByToggle(toggleStatus: boolean, color: string) {
+    const days = Object.keys(dates);
+
+    for (let i = 0; i < days.length; i++) {
+      const day = days[i];
+      const date = dates[day];
+
+      if (date['selected']) {
+        if (toggleStatus) {
+          markDay(day, color, false);
+        } else {
+          removeMarkedDay(day);
+        }
+      }
     }
 
     const dateUpdated = JSON.parse(JSON.stringify(dates));
@@ -133,12 +153,11 @@ export default function Container() {
           setDates={setDates}
         />
         <ActionButtons
-          dates={dates}
-          setDates={setDates}
           isOnYes={isOnYes}
           isOnNo={isOnNo}
           isOnPart={isOnPart}
           setToggles={setToggles}
+          updateDatesByToggle={updateDatesByToggle}
         />
       </View>
     </View>
