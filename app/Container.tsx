@@ -15,6 +15,12 @@ export default function Container() {
   const [isOnNo, setIsOnNo] = useState(false);
   const [isOnPart, setIsOnPart] = useState(false);
 
+  function setToggles(yesStatus = false, noStatus = false, partStatus = false) {
+    setIsOnYes(yesStatus);
+    setIsOnNo(noStatus);
+    setIsOnPart(partStatus);
+  }
+
   function markDay(date: string) {
     dates[date] = {
       startingDay: true,
@@ -24,44 +30,40 @@ export default function Container() {
       selected: true,
     };
 
-    setIsOnYes(false);
-    setIsOnNo(false);
-    setIsOnPart(false);
+    setToggles();
   }
 
   function updateMarkedDay(date: string) {
     let dayColor = dates[date]['color'];
+    let daySelected = false;
 
     switch (dayColor) {
       case GREEN_COLOR:
         dayColor = SELECTED_GREEN_COLOR;
-        setIsOnYes(true);
-        setIsOnNo(false);
-        setIsOnPart(false);
+        daySelected = true;
+        setToggles(true);
         break;
       case RED_COLOR:
         dayColor = SELECTED_RED_COLOR;
-        setIsOnYes(false);
-        setIsOnNo(true);
-        setIsOnPart(false);
+        daySelected = true;
+        setToggles(false, true);
         break;
       case YELLOW_COLOR:
         dayColor = SELECTED_YELLOW_COLOR;
-        setIsOnYes(false);
-        setIsOnNo(false);
-        setIsOnPart(true);
+        daySelected = true;
+        setToggles(false, false, true);
         break;
       case SELECTED_GREEN_COLOR:
         dayColor = GREEN_COLOR;
-        setIsOnYes(false);
+        setToggles();
         break;
       case SELECTED_RED_COLOR:
         dayColor = RED_COLOR;
-        setIsOnNo(false);
+        setToggles();
         break;
       case SELECTED_YELLOW_COLOR:
         dayColor = YELLOW_COLOR;
-        setIsOnPart(false);
+        setToggles();
         break;
       default:
         dayColor = SELECTED_COLOR;
@@ -72,12 +74,28 @@ export default function Container() {
       color: dayColor,
       endingDay: true,
       textColor: 'white',
-      selected: true,
+      selected: daySelected,
     };
   }
 
   function removeMarkedDay(date: string) {
     delete dates[date];
+  }
+
+  function numberOfSelectedDays() {
+    const days = Object.keys(dates);
+    let daysSelected = 0;
+
+    for (let i = 0; i < days.length; i++) {
+      const day = days[i];
+      const date = dates[day];
+
+      if (date['selected']) {
+        daysSelected++;
+      }
+    }
+
+    return daysSelected;
   }
 
   function handleDayPress(day: DateObject) {
@@ -87,8 +105,6 @@ export default function Container() {
       ? dates[daySelected]['color'] == SELECTED_COLOR
       : false;
 
-    // Loop para desativar toggles se tivar mais de um selecionado
-
     if (isMarkedDay) {
       if (!isPressedDay) {
         updateMarkedDay(daySelected);
@@ -97,6 +113,10 @@ export default function Container() {
       }
     } else {
       markDay(daySelected);
+    }
+
+    if (numberOfSelectedDays() > 1) {
+      setToggles();
     }
 
     const dateUpdated = JSON.parse(JSON.stringify(dates));
