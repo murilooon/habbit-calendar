@@ -12,22 +12,22 @@ type ActionButtonsProps = {
   dates: { [date: string]: PeriodMarking };
   setDates: (prevState: DatesProps) => void;
   isOnYes: boolean;
-  setIsOnYes: (prevState: boolean) => void;
   isOnNo: boolean;
-  setIsOnNo: (prevState: boolean) => void;
   isOnPart: boolean;
-  setIsOnPart: (prevState: boolean) => void;
+  setToggles: (
+    yesStatus?: boolean,
+    noStatus?: boolean,
+    partStatus?: boolean,
+  ) => void;
 };
 
 export default function ActionButtons({
   dates,
   setDates,
   isOnYes,
-  setIsOnYes,
   isOnNo,
-  setIsOnNo,
   isOnPart,
-  setIsOnPart,
+  setToggles,
 }: ActionButtonsProps) {
   function removeDay(day: string) {
     delete dates[day];
@@ -65,23 +65,17 @@ export default function ActionButtons({
 
   function handleYesChange(value: boolean) {
     updateDates(value, GREEN_COLOR);
-    setIsOnYes(value);
-    setIsOnNo(false);
-    setIsOnPart(false);
+    setToggles(value);
   }
 
   function handleNoChange(value: boolean) {
     updateDates(value, RED_COLOR);
-    setIsOnNo(value);
-    setIsOnYes(false);
-    setIsOnPart(false);
+    setToggles(false, value);
   }
 
   function handlePartChange(value: boolean) {
     updateDates(value, YELLOW_COLOR);
-    setIsOnPart(value);
-    setIsOnYes(false);
-    setIsOnNo(false);
+    setToggles(false, false, value);
   }
 
   return (

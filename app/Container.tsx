@@ -136,11 +136,9 @@ export default function Container() {
           dates={dates}
           setDates={setDates}
           isOnYes={isOnYes}
-          setIsOnYes={setIsOnYes}
           isOnNo={isOnNo}
-          setIsOnNo={setIsOnNo}
           isOnPart={isOnPart}
-          setIsOnPart={setIsOnPart}
+          setToggles={setToggles}
         />
       </View>
     </View>
