@@ -1,14 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
+import type { PeriodMarking, DateObject } from 'react-native-calendars';
 
 import ActionButtons from './ActionButtons';
 import HabbitCalendar from './HabbitCalendar';
 
 export default function Container() {
+  type DatesProps = {
+    [date: string]: PeriodMarking;
+  };
+
+  const [dates, setDates] = useState<DatesProps>({});
+
+  function handleDayPress(day: DateObject) {
+    const dateSelected: string = day['dateString'];
+    const isDaySelected = dates[dateSelected] ? true : false;
+
+    if (isDaySelected) {
+      delete dates[dateSelected];
+    } else {
+      dates[dateSelected] = {
+        startingDay: true,
+        color: 'blue',
+        endingDay: true,
+        textColor: 'white',
+      };
+    }
+
+    const dateUpdated = JSON.parse(JSON.stringify(dates));
+
+    setDates(dateUpdated);
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.container_view}>
-        <HabbitCalendar />
+        <HabbitCalendar
+          onChange={handleDayPress}
+          dates={dates}
+          setDates={setDates}
+        />
         <ActionButtons />
       </View>
     </View>
