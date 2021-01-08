@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import type { PeriodMarking, DateObject } from 'react-native-calendars';
 
@@ -15,10 +16,35 @@ export default function Container() {
   const [isOnNo, setIsOnNo] = useState(false);
   const [isOnPart, setIsOnPart] = useState(false);
 
+  useEffect(() => {
+    const loadDates = async () => {
+      try {
+        const jsonValue = await AsyncStorage.getItem('@Dates');
+
+        setDates(jsonValue != null ? JSON.parse(jsonValue) : null);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    loadDates();
+  }, [setDates]);
+
+  const saveDates = async (value: unknown) => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem('@Dates', jsonValue);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   function setToggles(yesStatus = false, noStatus = false, partStatus = false) {
     setIsOnYes(yesStatus);
     setIsOnNo(noStatus);
     setIsOnPart(partStatus);
+
+    saveDates(dates);
   }
 
   function removeMarkedDay(day: string) {
@@ -147,11 +173,7 @@ export default function Container() {
   return (
     <View style={styles.container}>
       <View style={styles.container_view}>
-        <HabbitCalendar
-          onChange={handleDayPress}
-          dates={dates}
-          setDates={setDates}
-        />
+        <HabbitCalendar onChange={handleDayPress} dates={dates} />
         <ActionButtons
           isOnYes={isOnYes}
           isOnNo={isOnNo}

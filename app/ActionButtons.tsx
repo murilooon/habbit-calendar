@@ -1,6 +1,5 @@
 import React from 'react';
 import { View } from 'react-native';
-import type { PeriodMarking } from 'react-native-calendars';
 
 import ActionButton from './ActionButton';
 
