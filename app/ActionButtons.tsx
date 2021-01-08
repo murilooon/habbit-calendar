@@ -1,23 +1,87 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
+import type { PeriodMarking } from 'react-native-calendars';
 
 import ActionButton from './ActionButton';
 
-export default function ActionButtons() {
-  const [isOnYes, setIsOnYes] = useState(false);
-  const [isOnNo, setIsOnNo] = useState(false);
-  const [isOnPart, setIsOnPart] = useState(false);
+type DatesProps = {
+  [date: string]: PeriodMarking;
+};
 
-  function handleIsOnYesChange(value: boolean) {
+type ActionButtonsProps = {
+  dates: { [date: string]: PeriodMarking };
+  setDates: (prevState: DatesProps) => void;
+  isOnYes: boolean;
+  setIsOnYes: (prevState: boolean) => void;
+  isOnNo: boolean;
+  setIsOnNo: (prevState: boolean) => void;
+  isOnPart: boolean;
+  setIsOnPart: (prevState: boolean) => void;
+};
+
+export default function ActionButtons({
+  dates,
+  setDates,
+  isOnYes,
+  setIsOnYes,
+  isOnNo,
+  setIsOnNo,
+  isOnPart,
+  setIsOnPart,
+}: ActionButtonsProps) {
+  function removeDay(day: string) {
+    delete dates[day];
+  }
+
+  function markDay(day: string, color: string) {
+    dates[day] = {
+      startingDay: true,
+      color,
+      endingDay: true,
+      textColor: 'white',
+    };
+  }
+
+  function updateDates(toggleStatus: boolean, color: string) {
+    const days = Object.keys(dates);
+
+    for (let i = 0; i < days.length; i++) {
+      const day = days[i];
+      const date = dates[day];
+
+      if (date['selected']) {
+        if (toggleStatus) {
+          markDay(day, color);
+        } else {
+          removeDay(day);
+        }
+      }
+    }
+
+    const dateUpdated = JSON.parse(JSON.stringify(dates));
+
+    setDates(dateUpdated);
+  }
+
+  function handleYesChange(value: boolean) {
+    updateDates(value, GREEN_COLOR);
     setIsOnYes(value);
+    setIsOnNo(false);
+    setIsOnPart(false);
   }
 
-  function handleIsOnNoChange(value: boolean) {
+  function handleNoChange(value: boolean) {
+    updateDates(value, RED_COLOR);
     setIsOnNo(value);
+    setIsOnYes(false);
+    setIsOnPart(false);
   }
 
-  function handleIsOnPartChange(value: boolean) {
+  function handlePartChange(value: boolean) {
+    updateDates(value, YELLOW_COLOR);
     setIsOnPart(value);
+    setIsOnYes(false);
+    setIsOnNo(false);
   }
 
   return (
@@ -25,23 +89,23 @@ export default function ActionButtons() {
       <View style={{ flexDirection: 'row' }}>
         <ActionButton
           label="YES"
-          color="#94cf83"
+          color={GREEN_COLOR}
           isOn={isOnYes}
-          onChange={handleIsOnYesChange}
+          onChange={handleYesChange}
         />
         <ActionButton
           label="NO"
-          color="#f06f6a"
+          color={RED_COLOR}
           isOn={isOnNo}
-          onChange={handleIsOnNoChange}
+          onChange={handleNoChange}
         />
       </View>
       <View style={{ marginTop: 15 }}>
         <ActionButton
           label="PART"
-          color="#f9ca60"
+          color={YELLOW_COLOR}
           isOn={isOnPart}
-          onChange={handleIsOnPartChange}
+          onChange={handlePartChange}
         />
       </View>
     </View>

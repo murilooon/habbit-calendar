@@ -27,23 +27,6 @@ export default function HabbitCalendar({
     }
   };
 
-  const date = {
-    '2021-01-08': {
-      startingDay: true,
-      color: '#f9ca60',
-      endingDay: true,
-      textColor: 'white',
-    },
-    '2021-01-09': {
-      startingDay: true,
-      color: '#f9ca60',
-      endingDay: true,
-      textColor: 'white',
-    },
-  };
-
-  save(date);
-
   useEffect(() => {
     const load = async () => {
       try {

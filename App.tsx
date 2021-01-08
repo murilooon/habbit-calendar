@@ -15,6 +15,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import Container from './app/Container';
 import Header from './app/Header';
+import './app/global.ts';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -30,7 +31,7 @@ export default function App() {
   return (
     <LinearGradient colors={['#FDCD56', '#FCD277']} style={styles.container}>
       <SafeAreaView style={styles.container}>
-        <StatusBar backgroundColor="#fdce58" />
+        <StatusBar backgroundColor={YELLOW_COLOR} />
         <Header />
         <Container />
       </SafeAreaView>
