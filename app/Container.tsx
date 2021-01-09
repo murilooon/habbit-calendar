@@ -21,7 +21,7 @@ export default function Container() {
       try {
         const jsonValue = await AsyncStorage.getItem('@Dates');
 
-        setDates(jsonValue != null ? JSON.parse(jsonValue) : null);
+        if (jsonValue != null) setDates(JSON.parse(jsonValue));
       } catch (e) {
         console.log(e);
       }
