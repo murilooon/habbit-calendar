@@ -1,23 +1,40 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View } from 'react-native';
 
 import ActionButton from './ActionButton';
 
-export default function ActionButtons() {
-  const [isOnYes, setIsOnYes] = useState(false);
-  const [isOnNo, setIsOnNo] = useState(false);
-  const [isOnPart, setIsOnPart] = useState(false);
+type ActionButtonsProps = {
+  isOnYes: boolean;
+  isOnNo: boolean;
+  isOnPart: boolean;
+  setToggles: (
+    yesStatus?: boolean,
+    noStatus?: boolean,
+    partStatus?: boolean,
+  ) => void;
+  updateDatesByToggle: (toggleStatus: boolean, color: string) => void;
+};
 
-  function handleIsOnYesChange(value: boolean) {
-    setIsOnYes(value);
+export default function ActionButtons({
+  isOnYes,
+  isOnNo,
+  isOnPart,
+  setToggles,
+  updateDatesByToggle,
+}: ActionButtonsProps) {
+  function handleYesChange(value: boolean) {
+    updateDatesByToggle(value, GREEN_COLOR);
+    setToggles(value);
   }
 
-  function handleIsOnNoChange(value: boolean) {
-    setIsOnNo(value);
+  function handleNoChange(value: boolean) {
+    updateDatesByToggle(value, RED_COLOR);
+    setToggles(false, value);
   }
 
-  function handleIsOnPartChange(value: boolean) {
-    setIsOnPart(value);
+  function handlePartChange(value: boolean) {
+    updateDatesByToggle(value, YELLOW_COLOR);
+    setToggles(false, false, value);
   }
 
   return (
@@ -25,23 +42,23 @@ export default function ActionButtons() {
       <View style={{ flexDirection: 'row' }}>
         <ActionButton
           label="YES"
-          color="#94cf83"
+          color={GREEN_COLOR}
           isOn={isOnYes}
-          onChange={handleIsOnYesChange}
+          onChange={handleYesChange}
         />
         <ActionButton
           label="NO"
-          color="#f06f6a"
+          color={RED_COLOR}
           isOn={isOnNo}
-          onChange={handleIsOnNoChange}
+          onChange={handleNoChange}
         />
       </View>
       <View style={{ marginTop: 15 }}>
         <ActionButton
           label="PART"
-          color="#f9ca60"
+          color={YELLOW_COLOR}
           isOn={isOnPart}
-          onChange={handleIsOnPartChange}
+          onChange={handlePartChange}
         />
       </View>
     </View>
