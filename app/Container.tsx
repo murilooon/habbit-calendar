@@ -63,22 +63,22 @@ export default function Container() {
 
   function updateMarkedDay(date: string) {
     let dayColor = dates[date]['color'];
-    let daySelected = false;
+    let isDaySelected = false;
 
     switch (dayColor) {
       case GREEN_COLOR:
         dayColor = SELECTED_GREEN_COLOR;
-        daySelected = true;
+        isDaySelected = true;
         setToggles(true);
         break;
       case RED_COLOR:
         dayColor = SELECTED_RED_COLOR;
-        daySelected = true;
+        isDaySelected = true;
         setToggles(false, true);
         break;
       case YELLOW_COLOR:
         dayColor = SELECTED_YELLOW_COLOR;
-        daySelected = true;
+        isDaySelected = true;
         setToggles(false, false, true);
         break;
       case SELECTED_GREEN_COLOR:
@@ -97,13 +97,7 @@ export default function Container() {
         dayColor = SELECTED_COLOR;
     }
 
-    dates[date] = {
-      startingDay: true,
-      color: dayColor,
-      endingDay: true,
-      textColor: 'white',
-      selected: daySelected,
-    };
+    markDay(date, dayColor, isDaySelected);
   }
 
   function numberOfSelectedDays() {
@@ -114,9 +108,9 @@ export default function Container() {
       const day = days[i];
       const date = dates[day];
 
-      if (date['selected']) {
-        daysSelected++;
-      }
+      if (date['selected']) daysSelected++;
+
+      if (daysSelected >= 2) break;
     }
 
     return daysSelected;
@@ -140,9 +134,7 @@ export default function Container() {
       setToggles();
     }
 
-    if (numberOfSelectedDays() > 1) {
-      setToggles();
-    }
+    if (numberOfSelectedDays() > 1) setToggles();
 
     const dateUpdated = JSON.parse(JSON.stringify(dates));
 
