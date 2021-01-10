@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import type { StackNavigationProp } from '@react-navigation/stack';
 import { LinearGradient } from 'expo-linear-gradient';
 import React, { useState } from 'react';
@@ -15,21 +16,41 @@ type NameScreenProps = {
 };
 
 export default function NameScreen({ navigation }: NameScreenProps) {
-  const [value, onChangeText] = useState('Murilo');
+  const [name, setName] = useState('');
+  const [nameError, setNameError] = useState('');
+
+  const saveNameValue = async (value: string) => {
+    try {
+      await AsyncStorage.setItem('@Name', value);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  function handleButtonPress() {
+    if (name) {
+      saveNameValue(name);
+      navigation.navigate('Home');
+    }
+  }
+
+  function handleNameChange(value: string) {
+    if (value) {
+      setName(value);
+    }
+  }
 
   return (
     <LinearGradient colors={['#FDCD56', '#FCD277']} style={styles.container}>
       <Text style={styles.text}>Qual o seu nome?</Text>
       <TextInput
         style={styles.text_input}
-        onChangeText={(text) => onChangeText(text)}
-        value={value}
+        onChangeText={(value) => handleNameChange(value)}
+        value={name}
         maxLength={15}
+        placeholder="Nome"
       />
-      <TouchableOpacity
-        onPress={() => navigation.navigate('Home')}
-        style={styles.button}
-      >
+      <TouchableOpacity onPress={handleButtonPress} style={styles.button}>
         <Text style={styles.buttonText}>Continuar</Text>
       </TouchableOpacity>
     </LinearGradient>
