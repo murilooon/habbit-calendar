@@ -1,9 +1,26 @@
-import React from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useEffect, useState } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 
 import HabbitLogo from './HabbitLogo';
 
 export default function Header() {
+  const [name, setName] = useState<string>();
+
+  useEffect(() => {
+    const loadName = async () => {
+      try {
+        const value = await AsyncStorage.getItem('@Name');
+
+        if (value !== null) setName(value);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    loadName();
+  }, [setName]);
+
   return (
     <View>
       <View style={styles.title_container}>
@@ -11,7 +28,7 @@ export default function Header() {
         <Text style={styles.title_text}>Habbit</Text>
       </View>
       <View style={styles.subtitle_container}>
-        <Text style={styles.subtitle_text}>Welcome, Murilo</Text>
+        <Text style={styles.subtitle_text}>Bem-vindo(a), {name}!</Text>
       </View>
     </View>
   );
