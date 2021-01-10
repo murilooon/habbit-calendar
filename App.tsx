@@ -8,10 +8,7 @@ import {
   WorkSans_700Bold,
 } from '@expo-google-fonts/work-sans';
 import { NavigationContainer } from '@react-navigation/native';
-import {
-  createStackNavigator,
-  StackNavigationProp,
-} from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import AppLoading from 'expo-app-loading';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
