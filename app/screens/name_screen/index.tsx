@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import type { StackNavigationProp } from '@react-navigation/stack';
 import { LinearGradient } from 'expo-linear-gradient';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, TextInput, Text, TouchableOpacity } from 'react-native';
 
 import type { RootStackParamList } from '../../../App';
@@ -18,6 +18,20 @@ type NameScreenProps = {
 export default function NameScreen({ navigation }: NameScreenProps) {
   const [name, setName] = useState('');
   const [nameError, setNameError] = useState({ borderColor: 'black' });
+
+  useEffect(() => {
+    const loadName = async () => {
+      try {
+        const value = await AsyncStorage.getItem('@Name');
+
+        if (value !== null) navigation.navigate('Home');
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    loadName();
+  }, [setName]);
 
   const saveNameValue = async (value: string) => {
     try {
