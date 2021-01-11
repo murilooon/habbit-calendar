@@ -17,7 +17,7 @@ type NameScreenProps = {
 
 export default function NameScreen({ navigation }: NameScreenProps) {
   const [name, setName] = useState('');
-  const [nameError, setNameError] = useState('');
+  const [nameError, setNameError] = useState({ borderColor: 'black' });
 
   const saveNameValue = async (value: string) => {
     try {
@@ -36,6 +36,10 @@ export default function NameScreen({ navigation }: NameScreenProps) {
 
   function handleNameChange(value: string) {
     if (value) {
+      setNameError({ borderColor: 'black' });
+      setName(value);
+    } else {
+      setNameError({ borderColor: 'red' });
       setName(value);
     }
   }
@@ -44,7 +48,7 @@ export default function NameScreen({ navigation }: NameScreenProps) {
     <LinearGradient colors={['#FDCD56', '#FCD277']} style={styles.container}>
       <Text style={styles.text}>Qual o seu nome?</Text>
       <TextInput
-        style={styles.text_input}
+        style={[styles.text_input, nameError]}
         onChangeText={(value) => handleNameChange(value)}
         value={name}
         maxLength={15}
