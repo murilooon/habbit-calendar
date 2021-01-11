@@ -31,7 +31,7 @@ export default function NameScreen({ navigation }: NameScreenProps) {
     };
 
     loadName();
-  }, [setName]);
+  }, [navigation]);
 
   const saveNameValue = async (value: string) => {
     try {
