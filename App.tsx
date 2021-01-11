@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 import {
   useFonts,
   IndieFlower_400Regular,
@@ -6,16 +7,24 @@ import {
   WorkSans_400Regular,
   WorkSans_700Bold,
 } from '@expo-google-fonts/work-sans';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import AppLoading from 'expo-app-loading';
-import { LinearGradient } from 'expo-linear-gradient';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import Container from './app/Container';
-import Header from './app/Header';
+import HomeScreen from './app/screens/home_screen';
+import NameScreen from './app/screens/name_screen';
 import './app/global.ts';
+
+export type RootStackParamList = {
+  Name: undefined;
+  Home: undefined;
+};
+
+const Stack = createStackNavigator<RootStackParamList>();
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -29,13 +38,15 @@ export default function App() {
   }
 
   return (
-    <LinearGradient colors={['#FDCD56', '#FCD277']} style={styles.container}>
+    <NavigationContainer>
       <SafeAreaView style={styles.container}>
         <StatusBar backgroundColor={YELLOW_COLOR} />
-        <Header />
-        <Container />
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Name" component={NameScreen} />
+          <Stack.Screen name="Home" component={HomeScreen} />
+        </Stack.Navigator>
       </SafeAreaView>
-    </LinearGradient>
+    </NavigationContainer>
   );
 }
 

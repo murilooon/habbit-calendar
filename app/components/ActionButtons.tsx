@@ -41,13 +41,13 @@ export default function ActionButtons({
     <View style={{ alignItems: 'center' }}>
       <View style={{ flexDirection: 'row' }}>
         <ActionButton
-          label="YES"
+          label="SIM"
           color={GREEN_COLOR}
           isOn={isOnYes}
           onChange={handleYesChange}
         />
         <ActionButton
-          label="NO"
+          label="NÃO"
           color={RED_COLOR}
           isOn={isOnNo}
           onChange={handleNoChange}
@@ -55,7 +55,7 @@ export default function ActionButtons({
       </View>
       <View style={{ marginTop: 15 }}>
         <ActionButton
-          label="PART"
+          label="QUASE"
           color={YELLOW_COLOR}
           isOn={isOnPart}
           onChange={handlePartChange}
