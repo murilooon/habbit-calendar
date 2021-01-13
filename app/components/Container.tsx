@@ -1,8 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import type { StackNavigationProp } from '@react-navigation/stack/lib/typescript/src/types';
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import type { PeriodMarking, DateObject } from 'react-native-calendars';
 
+import type { RootStackParamList } from '../../App';
 import ActionButtons from './ActionButtons';
 import HabbitCalendar from './HabbitCalendar';
 
@@ -10,7 +12,13 @@ type DatesProps = {
   [date: string]: PeriodMarking;
 };
 
-export default function Container() {
+type NavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
+
+type HommeScreenProps = {
+  navigation: NavigationProp;
+};
+
+export default function Container({ navigation }: HommeScreenProps) {
   const [dates, setDates] = useState<DatesProps>({});
   const [isOnYes, setIsOnYes] = useState(false);
   const [isOnNo, setIsOnNo] = useState(false);
@@ -116,7 +124,29 @@ export default function Container() {
     return daysSelected;
   }
 
+  function updateDay(day: DateObject, color: string) {
+    markDay(day['dateString'], color, false);
+
+    const dateUpdated = JSON.parse(JSON.stringify(dates));
+
+    setDates(dateUpdated);
+  }
+
+  function removeDay(day: string) {
+    delete dates[day];
+
+    const dateUpdated = JSON.parse(JSON.stringify(dates));
+
+    setDates(dateUpdated);
+  }
+
   function handleDayPress(day: DateObject) {
+    navigation.navigate('Goal', {
+      day,
+      updateDay,
+      removeDay,
+    });
+
     const daySelected: string = day['dateString'];
     const isMarkedDay = dates[daySelected] ? true : false;
     const isPressedDay = isMarkedDay

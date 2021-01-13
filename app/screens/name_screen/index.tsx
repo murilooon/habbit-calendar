@@ -6,13 +6,10 @@ import { StyleSheet, TextInput, Text, TouchableOpacity } from 'react-native';
 
 import type { RootStackParamList } from '../../../App';
 
-type ProfileScreenNavigationProp = StackNavigationProp<
-  RootStackParamList,
-  'Name'
->;
+type NavigationProp = StackNavigationProp<RootStackParamList, 'Name'>;
 
 type NameScreenProps = {
-  navigation: ProfileScreenNavigationProp;
+  navigation: NavigationProp;
 };
 
 export default function NameScreen({ navigation }: NameScreenProps) {
